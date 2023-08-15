@@ -1,51 +1,25 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 
-def interpolate(x, A, B):
-    """ This functions takes two points A, B and assumes a straightline 
-    between them. It then returns the y value of some point (x, y) between A,B,
-    by scaling the total y distance by the ratio of partial and total x
-    distance."""
-
-    ax, ay = A
-    bx, by = B
-
-    #assert ax <= x <= bx, ValueError('x outside defined range.')
-
-    total_x_dist = bx - ax
-    partial_x_dist = x - ax
+def plot_transforms(ts, ys, transforms_dict):
+    """ Takes original set of times: ts and signal: ys and plots them,
+    with the entries of transformed signals: ys_i in transforms_dict."""
     
-    total_y_dist = by - ay
-
-    interpolated_y = ay + total_y_dist * partial_x_dist / total_x_dist
-    return interpolated_y
-
-
-def interpolate_signal(xs, points_list):
-    """ Given an arry of sample times and a list of point tuples as points,
-    this function returns linearly interpolated sample values between defined
-    points as an arrat. """
+    num_figs = len(transforms_dict) +1
+    fig, axes = plt.subplots(num_figs, figsize=(18, 4*num_figs))
+    fig.subplots_adjust(hspace=0.)
     
-    points = points_list.copy()
-    last_point_x, last_point_y = xs[0], 0
-    next_point_x, next_point_y = points.pop(0) 
-    ys = np.zeros(len(xs))
+    # plot original
+    axes[0].plot(ts, ys, label='Original signal')
+    
+    # plot entries in dict
+    for i, key in enumerate(transforms_dict):
+        axes[i+1].plot(ts, ys, label='Original signal', alpha=.3)
+        axes[i+1].plot(ts, transforms_dict[key], label=key)
 
-    for i, x in enumerate(xs):
-        if x >= next_point_x:
-            last_point_x, last_point_y = next_point_x, next_point_y
-            
-            if points:
-                next_point_x, next_point_y = points.pop(0)
-            else:
-                next_point_x, next_point_y = xs[-1], 0
-        ys[i] = interpolate(x, (last_point_x, last_point_y),
-                            (next_point_x, next_point_y))
-    return ys
-
-
-def transform_signal(xs, points, fun):
-    zs = fun(xs)
-    return interpolate_signal(zs, points)
-
-
+    # draw legends and grids
+    for ax in axes:
+        ax.grid(True, alpha=.2)
+        ax.legend()
+    plt.show()
