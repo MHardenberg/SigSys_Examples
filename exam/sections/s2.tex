@@ -1,0 +1,19 @@
+\section*{Problem 2 - Fourier series}
+This exercise would usually require integration by parts, which we havn't used 
+thorughout the course and will not appear in the final exam. I have sligtly 
+changed the signal to make this problem more representative of the coming exam.
+Let 
+\begin{align}
+    x(t) = \begin{cases}
+        -2, &\text{ if }0\leq t < 1\\
+        1, &\text{ if }1\leq t < 2\\
+        0, &\text{ if }2\leq t < 4\\        
+    \end{cases}
+\end{align}
+
+and $T = 4$. We know 
+\begin{align}
+    a_k &= \frac{1}{T}\int_T dt \ \ x(t)e^{-jk\frac{2\pi}{T}t}
+        &= \frac{1}{4} (\int_0^1 dt \ \ -2 e^{-jk\frac{2\pi}{T}t} 
+            + \int_1^2 dt \ \ e^{-jk\frac{2\pi}{T}t})
+\end{align}

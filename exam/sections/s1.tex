@@ -1,0 +1,79 @@
+\section*{Problem 1}
+\subsection*{Periodicity}
+\begin{description}
+    \item[i)] $x(t) = 3\cos(3t + \pi/3)$ is periodic as it is a simple sinusoid with $T=\frac{2\pi}{3}$.
+    \item[ii)] $x(t) = 3\cos^2(3t + \pi/3)$ is also periodic. To see this note that $y(t) = 3\cos(3t + \pi/3)$ is periodic as before. Then that $y(t + \frac{\pi}{3}) = -y(t)$. but since we take the square $x(t) = y^2(t) = y^2(t + \frac{\pi}{3})$ it now is periodic with half the period of $y(t)$, namely $T=\frac{\pi}{3}$.
+\item[iii)] $x(t) = \cos(\frac{\pi}{2}t) + \cos(\frac{1}{2}t)$ is a sum of sinusoids with periods of $T_1 = 4$ and $T_2 = 4\pi$. $x(t)$ is periodic if there exist two integers $n,m$ such that $n\cdot T_1 = m\cdot T_2$. This is not possible as the fraction of $n/m \propto \pi$, which is irrational. Hence, no such integer numbers exist.
+
+\item[iv)] $x(t) = e^{j\pi t}$ is trivially periodic, as it is a simple complex exponential and thus by Eulers rule, a sum of sinusoids of equal periods.
+\end{description}
+
+\subsection*{System properties}
+\begin{equation}
+    y(t) = x(t)x(t+2).
+\end{equation}
+\begin{description}
+    \item[memoryless?] No, as the system depends on future values.
+    \item[causal?] No, as the system depends on future values.
+    \item[stable?] Yes. Let $x(t)$ be bounded by $|x(t)| < M < \infty$. Then 
+    $|y(t)| = |x(t) \cdot x(t+2)| \leq M^2 < \infty$. Hence, $y(t)$ is bounded
+    by $M^2$ for $M$ bounded input and thus stable.
+    \item[TI] Yes. To be time invarient we need 
+    \begin{equation}
+        y(t + t_0) = x(t+t_0)x(t+2+t_0),
+    \end{equation}
+    which can be seen by insertion.
+
+    \item[linear] No. Let $x(t) = a\cdot x_0(t) + b\cdot x_1(t)$. Then 
+
+    \begin{align}
+        x(t)x(t+2) &= (a\cdot x_0(t) + b\cdot x_1(t))
+        (a\cdot x_0(t+2) + b\cdot x_1(t+2))\\
+            &= a^2\cdot x_0(t)x_0(t+2) + b^2\cdot x_1(t)x_1(t+2) \nonumber\\
+        &+ ab\cdot (x_0(t)x_1(t+2) + x_0(t+2)x_1(t))\\ 
+            &\neq a\underbrace{\cdot x_0(t)x_0(t+2)}_{y(t)\mid _{x(t)=x_0(t)}}
+        + b\cdot \underbrace{x_1(t)x_1(t+2)}_{y(t)\mid_{x(t) = x_1(t)}}.
+    \end{align}
+\end{description}
+
+\begin{equation}
+    y[n] = max\{x[n], x[n+1]\}.
+\end{equation}
+
+\begin{description}
+    \item[memoryless?] No, as the system depends on future values.
+    \item[causal?] No, as the system depends on future values.
+    \item[stable?] Yes. Let $x(t)$ be bounded by $M$ as before. Then by definition 
+    $y(t)$ is also bounded by $M$ and thus it is stable.
+    \item[TI?] Yes. Any values we input will shift the output by the same. As 
+    we compare to the one-setp-ahead value, we will always cover the same pairings. Different integer jumps could produce different pairing depending on time 
+    delays of the imput and could be time variant.
+    \item[Linear] No. Generally\footnote{There are exceptions, but that's not
+    the point.}
+    \begin{align}
+        &a\cdot max\{x_0[n], x_0[n+1]\} + b\cdot max\{x_1[n],
+        x_1[n+1]\}\nonumber\\
+        &\neq max\{ax_0[n] + bx_1[n], ax_0[n+1] + bx_1[n+1]\}
+    \end{align}
+Consider e.g.
+\begin{align}
+    x_0[n] &= [\dots, 1, 2, 1, 2, \cdots]\\
+    x_1[n] &= [\dots, 1, -1, 1, -1, \cdots]\\ 
+\Rightarrow x_0[n]+x_1[n] &= [\dots, 2, 1, 2, 1, \dots]\text{ and }\\
+    a&=b=1.
+\end{align}
+
+Then 
+\begin{align}
+    y_0[n] &= [\dots, 2, 2, 2, \dots]\\
+    y_1[n] &= [\dots, 1, 1, 1, \dots]\\
+\Rightarrow y_0[n]+y_1[n] &= [\dots, 3, 3, 3, \dots],
+\end{align}
+
+but
+\begin{align}
+    y_{x_0 + x_1}[n] &= [\dots, 2, 2, 2, \dots]\\
+    &\neq y_0[n]+y_1[n].
+\end{align}
+\end{description}
+
