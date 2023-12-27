@@ -5,7 +5,7 @@ changed the signal to make this problem more representative of the coming exam.
 Let 
 \begin{align}
     x(t) = \begin{cases}
-        -2, &\text{ if }0\leq t < 1\\
+        -1, &\text{ if }0\leq t < 1\\
         1, &\text{ if }1\leq t < 2\\
         0, &\text{ if }2\leq t < 4\\        
     \end{cases}
@@ -13,7 +13,19 @@ Let
 
 and $T = 4$. We know 
 \begin{align}
-    a_k &= \frac{1}{T}\int_T dt \ \ x(t)e^{-jk\frac{2\pi}{T}t}
-        &= \frac{1}{4} (\int_0^1 dt \ \ -2 e^{-jk\frac{2\pi}{T}t} 
-            + \int_1^2 dt \ \ e^{-jk\frac{2\pi}{T}t})
+    a_k &= \frac{1}{T}\int_T dt \ \ x(t)e^{-jk\frac{2\pi}{T}t}\\
+        &= \frac{1}{4} \left(\int_0^1 dt \ \ - e^{-jk\frac{\pi}{2}t} 
+            + \int_1^2 dt \ \ e^{-jk\frac{\pi}{2}t}\right)\\
+        &= \frac{1}{4}\left(\left[\frac{2}{jk\pi} e^{-jk\frac{\pi}{2}t}\right]
+        _1^2
+        -\left[\frac{2}{jk\pi} e^{-jk\frac{\pi}{2}t}\right]_0^1\right)\\
+        &= \frac{1}{jk2\pi}\left( e^{-jk\pi} - e^{-jk\frac{\pi}{2}}
+        - e^{-jk\frac{\pi}{2}} + 1\right)\\
+        &= \frac{1}{jk2\pi} 
+            \left(e^{-jk\pi} + 1 -2\cos(k \frac{\pi}{2})\right)\\
+        &= \frac{1}{jk2\pi} \left(e^{-jk \frac{\pi}{2}}
+            \left(e^{-jk \frac{\pi}{2}} + e^{jk \frac{\pi}{2}}\right)
+        - 2\cos(k\frac{\pi}{2}) \right)\\
+        &= \frac{\cos(k\frac{\pi}{2})}{jk\pi} 
+            \left(e^{-jk \frac{\pi}{2}} - 1 \right)
 \end{align}
